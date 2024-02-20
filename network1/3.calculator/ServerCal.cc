@@ -2,6 +2,8 @@
 #include "TcpServer.hpp"
 #include "Protocol.hpp"
 #include "Servercal.hpp"
+#include <unistd.h>
+#include <memory>
 
 void Usage(std::string proc)
 {
@@ -20,6 +22,7 @@ int main(int argc,char *argv[])
     Servercal cal;
     TcpServer *tsvp = new TcpServer(port,bind(&Servercal::Calculator,&cal,std::placeholders::_1));
     tsvp->InitServer();
+    daemon(0,0);
     tsvp->Start();
     return 0;
 }

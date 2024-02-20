@@ -39,17 +39,24 @@ public:
                 std::string inbuffer_stream;
                 while(true)
                 {
-                    char buffer[128];
+                    char buffer[1280];
                     ssize_t n =read(sockfd,buffer,sizeof(buffer));
                     if(n>0)
                     {
                         buffer[n]=0;
                         inbuffer_stream+=buffer;
-                        std::string info =callback_(inbuffer_stream);
-                        if(info.empty()) continue;
-                        write(sockfd,info.c_str(),info.size());
+                        while(true)
+                        {
+                            std::string info =callback_(inbuffer_stream);
+                            if(info.empty()) break;;
+                            write(sockfd,info.c_str(),info.size());
+                        }
 
                     }
+                    else if(n==0)
+                        break;
+                    else
+                        break;
                 }
                 exit(0);
             }
