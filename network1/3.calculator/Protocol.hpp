@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+//#define Myself 1
 const std::string blank_space_sep = " ";
 const std::string protocol_sep = "\n";
 std::string Encode(std::string &content)
@@ -37,6 +38,7 @@ public:
     {}
     bool Serialize(std::string *out)
     {
+#ifdef Myself
         // 构建报文有效载荷
         //  struct to string "len"\n"x op y"
         std::string s = std::to_string(x);
@@ -47,9 +49,14 @@ public:
         // 封装报头
         *out = s;
         return true;
+#else
+
+
+#endif
     }
     bool Deserialize(const std::string &in)
     {
+#ifdef MySelf
         std::size_t left = in.find(blank_space_sep);
         if(left == std::string::npos) return false;
         std::string part_x=in.substr(0,left);
@@ -63,6 +70,9 @@ public:
         x=std::stoi(part_x);
         y=std::stoi(part_y);
         return true;
+#else
+
+#endif
     } 
 
 public:
