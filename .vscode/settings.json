@@ -33,6 +33,7 @@
         "utility": "cpp",
         "typeinfo": "cpp",
         "string": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "memory": "cpp"
     }
 }
